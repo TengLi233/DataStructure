@@ -1,36 +1,28 @@
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
-public class Rabbit {
-	public static final int MAXCOST = 100;
+public class BuildARoad {
+	public static final int MAXCOST = 10010;
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
-		int n = in.nextInt();
+		int N = in.nextInt();
 		
-		int[][] graph = new int[n][n];
 		
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				graph[i][j] = MAXCOST;
+		int[][] roadCost = new int[N][N];
+		
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				int cost = in.nextInt();
+				if(cost != 0)
+					roadCost[i][j] = cost;
+				else
+					roadCost[i][j] = MAXCOST;
 			}
 		}
 		
-		for(int i = 0; i < n - 1; i++) {
-			int v1 = in.next().charAt(0) - 'A';
-			int e = in.nextInt();
-			for(int j = 0; j < e; j++) {
-				int v2 = in.next().charAt(0) - 'A';
-				int weight = in.nextInt();
-				graph[v1][v2] = weight;
-				graph[v2][v1] = weight;
-			}
-		}
-		in.close();
-		System.out.println(prim(graph, n));				
+		System.out.println(Prim(roadCost, N));
 	}
 	
-	public static int prim(int[][] roadCost, int N) {
+	public static int Prim(int[][] roadCost, int N) {
 		boolean[] visited = new boolean[N];
 		int sum = 0;
 		int root = 0;
@@ -56,8 +48,11 @@ public class Rabbit {
 			if(min != MAXCOST)
 				sum += min;
 		}
+				
+		
 		return sum;
-	}  
+	}
+	
 	public static int getMinCost(int[][] roadCost, ArrayList<Integer> list, int i) {
 		int min = MAXCOST;
 		for(int x : list) {
@@ -66,7 +61,11 @@ public class Rabbit {
 				
 			}
 		}
+		//System.out.println(min);
 		return min;
 	}
-	
 }
+		
+		
+		
+		
